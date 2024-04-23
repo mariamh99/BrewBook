@@ -1,0 +1,981 @@
+//
+//  User.swift
+//  BrewBookFinal
+
+import Foundation
+
+struct User: Identifiable, Codable {
+    let id: String
+    let email: String
+}
+
+//Cafe.swift
+import Foundation
+
+struct Cafe: Identifiable, Codable {
+    let id: String
+    let name: String
+    let location: String
+    let coordinates: Coordinates
+    let rating: String
+    let imageURL: URL
+}
+
+struct Coordinates: Codable {
+    let lat: Double
+    let lon: Double
+}
+//
+//  Booking.swift
+//  BrewBookFinal
+import Foundation
+
+struct Booking: Identifiable, Codable {
+    let id: UUID
+    let user: User
+    let cafe: Cafe
+    let date: Date
+    let numberOfGuests: Int
+    let specialRequests: String?
+}
+//
+//  BookingViewModel.swift
+//  BrewBookFinal
+//
+import Foundation
+import Combine
+
+class BookingViewModel: ObservableObject {
+    @Published var bookings: [Booking] = []
+    
+    @Published var selectedDate = Date()
+    @Published var numberOfGuests = 1
+    @Published var specialRequests = ""
+    
+    private let bookingsKey = "bookings"
+    private var userDefaults: UserDefaults
+    
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+        loadBookings()
+    }
+    
+    func saveBookings() {
+        let encoder = JSONEncoder()
+        do {
+            let encodedData = try encoder.encode(bookings)
+            userDefaults.set(encodedData, forKey: bookingsKey)
+        } catch {
+            print("Failed to encode bookings: \(error)")
+        }
+    }
+    
+    func loadBookings() {
+        if let data = userDefaults.data(forKey: bookingsKey) {
+            let decoder = JSONDecoder()
+            if let decodedBookings = try? decoder.decode([Booking].self, from: data) {
+                DispatchQueue.main.async {
+                    self.bookings = decodedBookings
+                }
+            }
+        }
+    }
+    
+    func createBooking(cafe: Cafe, user: User) {
+        let booking = Booking(
+            id: UUID(),
+            user: user,
+            cafe: cafe,
+            date: selectedDate,
+            numberOfGuests: numberOfGuests,
+            specialRequests: specialRequests
+        )
+        
+        bookings.append(booking)
+        saveBookings()
+    }
+    
+    func updateBooking(_ booking: Booking) {
+        if let index = bookings.firstIndex(where: { $0.id == booking.id }) {
+            bookings[index] = booking
+            saveBookings()
+        }
+    }
+    
+    func deleteBooking(_ booking: Booking) {
+        if let index = bookings.firstIndex(where: { $0.id == booking.id }) {
+            bookings.remove(at: index)
+            saveBookings()
+        }
+    }
+}
+
+//
+//  UserViewModel.swift
+//  BrewBookFinal
+//
+import Foundation
+import Combine
+
+class UserViewModel: ObservableObject {
+    @Published var user: User?
+    private var cancellables = Set<AnyCancellable>()
+    
+    private var userDefaults: UserDefaults
+    
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+        fetchUser()
+    }
+    
+    func fetchUser() {
+        if let userData = userDefaults.data(forKey: "currentUser"),
+           let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
+            DispatchQueue.main.async {
+                self.user = decodedUser
+                print("User fetched successfully: \(decodedUser.email)")
+            }
+        } else {
+            print("Failed to fetch user from UserDefaults")
+        }
+    }
+    
+    func updateUser(_ user: User) {
+        self.user = user
+        if let encodedUser = try? JSONEncoder().encode(user) {
+            userDefaults.set(encodedUser, forKey: "currentUser")
+            print("User updated and saved to UserDefaults: \(user.email)")
+        } else {
+            print("Failed to encode or save user to UserDefaults")
+        }
+    }
+    
+    func isUserLoggedIn(withId id: String) -> Bool {
+        return user?.id == id
+    }
+
+}
+
+
+// CafeViewModel.swift
+import Foundation
+import Combine
+
+class CafeViewModel: ObservableObject {
+    @Published var cafes: [Cafe] = []
+    private var allCafes: [Cafe] = []
+    private var cancellables = Set<AnyCancellable>()
+    private let networkService = NetworkService()
+    
+    init() {
+        fetchCafes()
+    }
+    
+    func fetchCafes() {
+        networkService.fetchCafes { [weak self] cafes in
+            guard let self = self, let cafes = cafes else { return }
+            
+            DispatchQueue.main.async {
+                self.allCafes = cafes
+                self.cafes = cafes
+            }
+        }
+    }
+    
+    func searchCafes(by name: String) {
+        guard !name.isEmpty else {
+            cafes = allCafes
+            return
+        }
+        cafes = allCafes.filter { $0.name.localizedCaseInsensitiveContains(name) }
+    }
+    
+    func filterCafes(by criteria: [String: Any]) {
+        cafes = allCafes.filter { cafe in
+            // Example: Filtering by rating
+            if let rating = criteria["rating"] as? String, cafe.rating != rating {
+                return false
+            }
+            return true
+        }
+    }
+}
+//
+//  BookingsView.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct BookingsView: View {
+    @StateObject private var viewModel = BookingViewModel()
+    
+    var body: some View {
+        NavigationView {
+            List(viewModel.bookings) { booking in
+                NavigationLink(destination: BookingDetailView(booking: booking)) {
+                    BookingRowView(booking: booking)
+                }
+            }
+            .navigationTitle("Bookings")
+            .onAppear {
+                viewModel.loadBookings()
+            }
+        }
+    }
+}
+
+struct BookingRowView: View {
+    let booking: Booking
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(booking.cafe.name)
+                .font(.headline)
+            Text(booking.date, style: .date)
+                .font(.subheadline)
+            Text("Number of Guests: \(booking.numberOfGuests)")
+                .font(.subheadline)
+        }
+    }
+}
+
+struct BookingDetailView: View {
+    let booking: Booking
+    
+    var body: some View {
+        VStack {
+            Text(booking.cafe.name)
+                .font(.title)
+            Text(booking.date, style: .date)
+            Text("Number of Guests: \(booking.numberOfGuests)")
+            
+            if let specialRequests = booking.specialRequests {
+                Text("Special Requests: \(specialRequests)")
+            }
+        }
+        .navigationBarTitle("Booking Details")
+    }
+}
+
+
+//
+//  BookingView.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct BookingView: View {
+    let cafe: Cafe
+    @EnvironmentObject var userViewModel: UserViewModel  // Ensure this is passed down correctly in the environment
+    @StateObject private var viewModel = BookingViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section {
+                    DatePicker("Date", selection: $viewModel.selectedDate, displayedComponents: [.date])
+                    Stepper("Number of Guests: \(viewModel.numberOfGuests)", value: $viewModel.numberOfGuests, in: 1...10)
+                    TextField("Special Requests", text: $viewModel.specialRequests)
+                }
+                
+                Section {
+                    Button(action: bookingAction) {
+                        Text("Confirm Booking")
+                    }
+                }
+            }
+            .navigationBarTitle("Book \(cafe.name)")
+        }
+    }
+    
+    private func bookingAction() {
+        if let currentUser = userViewModel.user {
+            if userViewModel.isUserLoggedIn(withId: currentUser.id) {
+                viewModel.createBooking(cafe: cafe, user: currentUser)
+                presentationMode.wrappedValue.dismiss()
+            } else {
+                print("User not logged in")
+            }
+        } else {
+            print("No user available for booking")
+        }
+    }
+}
+//
+//  UserProfileView.swift
+//  BrewBookFinal
+import SwiftUI
+
+struct UserProfileView: View {
+    @StateObject private var viewModel = UserViewModel()
+    @State private var showLogoutAlert = false
+    @State private var showImagePicker = false
+    @State private var selectedImage: UIImage?
+    
+    var body: some View {
+        VStack {
+            if let image = selectedImage ?? viewModel.loadImage() {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .clipShape(Circle())
+            } else {
+                Button(action: {
+                    showImagePicker = true
+                }) {
+                    Text("Select Profile Photo")
+                }
+            }
+            
+            if let user = viewModel.user {
+                Text(user.email)
+                    .font(.title)
+                
+                Button(action: {
+                    showLogoutAlert = true
+                }) {
+                    Text("Logout")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
+                }
+                .padding()
+            } else {
+                Text("Loading...")
+            }
+        }
+        .onAppear {
+            viewModel.fetchUser()
+        }
+        .alert(isPresented: $showLogoutAlert) {
+            Alert(
+                title: Text("Logout"),
+                message: Text("Are you sure you want to logout?"),
+                primaryButton: .destructive(Text("Logout")) {
+                    AuthenticationManager.shared.logoutUser()
+                },
+                secondaryButton: .cancel()
+            )
+        }
+        .sheet(isPresented: $showImagePicker, onDismiss: saveImage) {
+            ImagePicker(selectedImage: $selectedImage)
+        }
+    }
+
+    private func saveImage() {
+        if let image = selectedImage {
+            viewModel.saveImage(image)
+        }
+    }
+}
+// CafeListView.swift
+import SwiftUI
+import MapKit
+
+struct CafeListView: View {
+    @StateObject private var viewModel = CafeViewModel()
+    
+    var body: some View {
+        NavigationView {
+            List(viewModel.cafes) { cafe in
+                NavigationLink(destination: CafeDetailView(cafe: cafe)) {
+                    CafeRowView(cafe: cafe)
+                }
+            }
+            .navigationTitle("Cafes")
+            .onAppear {
+                viewModel.fetchCafes()
+            }
+        }
+    }
+}
+
+struct CafeRowView: View {
+    let cafe: Cafe
+    
+    var body: some View {
+        HStack {
+            AsyncImage(url: cafe.imageURL)
+                .frame(width: 80, height: 80)
+                .cornerRadius(8)
+            
+            VStack(alignment: .leading) {
+                Text(cafe.name)
+                    .font(.headline)
+                Text(cafe.location)
+                    .font(.subheadline)
+                Text("Rating: \(cafe.rating)")
+                    .font(.subheadline)
+            }
+        }
+    }
+}
+
+import SwiftUI
+
+struct CafeDetailView: View {
+    let cafe: Cafe
+    @State private var isBookingPresented = false
+    @EnvironmentObject var userViewModel: UserViewModel  // Declared as EnvironmentObject
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                AsyncImage(url: cafe.imageURL)
+                    .aspectRatio(contentMode: .fit)
+                
+                Text(cafe.name).font(.title)
+                Text(cafe.location)
+                Text("Rating: \(cafe.rating)")
+                
+                Button(action: {
+                    isBookingPresented = true
+                }) {
+                    Text("Book Now")
+                        
+                }
+                .padding(.top)
+            }
+            .padding()
+        }
+        .navigationBarTitle(cafe.name)
+        .sheet(isPresented: $isBookingPresented) {
+            BookingView(cafe: cafe)
+        }
+    }
+}
+
+
+struct CafeListView_Previews: PreviewProvider {
+    static var previews: some View {
+        CafeListView()
+    }
+}
+
+struct CafeRowView_Previews: PreviewProvider {
+    static let cafe = Cafe(
+        id: "1",
+        name: "Sample Cafe",
+        location: "123 Main St",
+        coordinates: Coordinates(lat: 0.0, lon: 0.0),
+        rating: "4.5",
+        imageURL: URL(string: "https://example.com/image.jpg")!
+    )
+    
+    static var previews: some View {
+        CafeRowView(cafe: cafe)
+            .previewLayout(.sizeThatFits)
+    }
+}
+struct CafeDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        CafeDetailView(cafe: Cafe(id: "1", name: "Sample Cafe", location: "123 Main St", coordinates: Coordinates(lat: 0.0, lon: 0.0), rating: "4.5", imageURL: URL(string: "https://media-cdn.tripadvisor.com/media/photo-s/03/f4/0e/01/cafe-lilou.jpg")!))
+    }
+}
+//
+//  AuthenticationView.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct AuthenticationView: View {
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                
+                Button {
+                    
+                }
+            label:
+                {
+                    NavigationLink(destination: LoginView()) {
+                        Text("Login")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                    }
+                }
+                
+                Button {
+                    
+                }
+            label:{
+                NavigationLink(destination: SignUpView()) {
+                    Text("Sign Up")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+            }
+            }
+            .padding()
+            .background(AppStyles.backgroundColor)
+            .navigationBarTitle("Welcome", displayMode: .automatic)
+        }
+    }
+}
+
+struct AuthenticationView_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthenticationView()
+    }
+}
+//
+//  LoginView.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct LoginView: View {
+    @EnvironmentObject var authState: AuthenticationState
+    @State private var email = ""
+    @State private var password = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    var body: some View {
+        VStack {
+            TextField("Email", text: $email)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            
+            SecureField("Password", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            
+            Button("Login", action: attemptLogin)
+                .buttonStyle(AppStyles.primaryButtonStyle)
+                .padding(.top)
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Login Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+        .padding()
+    }
+    
+    private func attemptLogin() {
+        authState.loginUser(email: email, password: password) { result in
+            switch result {
+            case .success(_):
+                print("User logged in successfully")
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
+    }
+}
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView().environmentObject(AuthenticationState())
+    }
+}
+//
+//  SignUpView.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct SignUpView: View {
+    @EnvironmentObject var authState: AuthenticationState
+    @State private var email = ""
+    @State private var password = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
+    var body: some View {
+        VStack {
+            TextField("Email", text: $email)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            SecureField("Password", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Button("Sign Up", action: performRegistration)
+                .buttonStyle(AppStyles.primaryButtonStyle)
+                .padding(.top)
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Sign Up Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+        .padding()
+    }
+    
+    private func performRegistration() {
+        AuthenticationManager.shared.registerUser(email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                print("User registered successfully: \(user)")
+                authState.isAuthenticated = true
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
+            }
+        }
+    }
+}
+
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView().environmentObject(AuthenticationState())
+    }
+}
+//
+//  MainTabView.swift
+//  BrewBookFinal
+import SwiftUI
+
+struct MainTabView: View {
+    var body: some View {
+        TabView {
+            BookingsView()
+                .tabItem {
+                    Label("Bookings", systemImage: "calendar")
+                }
+            CafeListView()
+                .tabItem {
+                    Label("Cafes", systemImage: "cup.and.saucer")
+                }
+            UserProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
+        }
+        .accentColor(.blue) // Adjust the tab bar color using your AppStyles
+    }
+}
+
+struct MainTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainTabView()
+    }
+}
+//
+//  BrewBookFinalApp.swift
+//  BrewBookFinal
+import SwiftUI
+import Firebase
+
+@main
+struct BrewBookFinalApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
+    var body: some Scene {
+        WindowGroup {
+            SplashScreenView()
+                .environmentObject(AuthenticationState())
+                .environmentObject(UserViewModel())
+        }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
+
+//
+//  NetworkService.swift
+//  BrewBookFinal
+import Foundation
+
+class NetworkService {
+    func fetchCafes(completion: @escaping ([Cafe]?) -> Void) {
+        guard let url = URL(string: "https://my-json-server.typicode.com/mariamh99/my-json-server/cafes") else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let cafes = try decoder.decode([Cafe].self, from: data)
+                completion(cafes)
+            } catch {
+                print("Error decoding JSON: \(error)")
+                completion(nil)
+            }
+        }.resume()
+    }
+}
+//
+//  AsyncImage.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct AsyncImage: View {
+    @StateObject private var imageLoader = ImageLoader()  // Initialize here directly
+    
+    var url: URL  // Hold URL in a variable
+
+    init(url: URL) {
+        self.url = url
+    }
+    
+    var body: some View {
+        Group {
+            if let image = imageLoader.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else {
+                ProgressView()
+            }
+        }
+        .onAppear {
+            imageLoader.loadImage(from: url)  // Load image when the view appears
+        }
+        .onDisappear {
+            imageLoader.cancelLoading()
+        }
+    }
+}
+//
+//  AuthenticationManager.swift
+//  BrewBookFinal
+
+import Firebase
+
+class AuthenticationManager {
+    static let shared = AuthenticationManager()
+
+    private init() {}
+
+    // Function to register a new user with Firebase Authentication
+    func registerUser(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let firebaseUser = authResult?.user {
+                // Simplified User structure: Only ID and email are now stored
+                let user = User(id: firebaseUser.uid, email: email)
+                completion(.success(user))
+            }
+        }
+    }
+    
+    // Function to log in a user with Firebase Authentication
+    func loginUser(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let firebaseUser = authResult?.user {
+                // Simplified User structure: Only ID and email are now stored
+                let user = User(id: firebaseUser.uid, email: email)
+                completion(.success(user))
+            }
+        }
+    }
+
+    // Function to log out the current user
+    func logoutUser() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Error signing out: \(error.localizedDescription)")
+        }
+    }
+}
+// AuthenticationState.swift
+import Combine
+import SwiftUI
+
+class AuthenticationState: ObservableObject {
+    @Published var isAuthenticated = false
+    @Published var user: User?
+    
+    func loginUser(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        AuthenticationManager.shared.loginUser(email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    self.isAuthenticated = true
+                    self.user = user
+                }
+                completion(.success(user))
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isAuthenticated = false
+                    self.user = nil
+                }
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func logoutUser() {
+        AuthenticationManager.shared.logoutUser()
+        self.isAuthenticated = false
+        self.user = nil
+    }
+}
+//
+//  ImagePicker.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var selectedImage: UIImage?
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        var parent: ImagePicker
+        
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.selectedImage = uiImage
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {}
+}
+//
+//  ImageStorage.swift
+//  BrewBookFinal
+//
+import SwiftUI
+
+struct ImageStorage {
+    private let defaults = UserDefaults.standard
+    private let imageKey = "savedImages"
+    
+    func saveImage(_ imageData: Data) {
+        var savedImages = getSavedImageData()
+        savedImages.append(imageData)
+        defaults.set(savedImages, forKey: imageKey)
+    }
+    
+    func getImages() -> [UIImage] {
+        let savedImageData = getSavedImageData()
+        return savedImageData.compactMap { UIImage(data: $0) }
+    }
+    
+    private func getSavedImageData() -> [Data] {
+        return defaults.array(forKey: imageKey) as? [Data] ?? []
+    }
+}
+//
+//  EncryptionManager.swift
+//  BrewBookFinal
+//
+import CryptoSwift
+import SwiftUI
+
+class EncryptionManager {
+    static let shared = EncryptionManager()
+    
+    private let key = "YourSecureEncryptionKey".data(using: .utf8)!
+    private let iv = "YourInitializationVector".data(using: .utf8)!
+    
+    private init() {}
+    
+    func encrypt(_ data: Data) -> Data {
+        do {
+            let encrypted = try AES(key: key.bytes, blockMode: CBC(iv: iv.bytes), padding: .pkcs7).encrypt(data.bytes)
+            return Data(encrypted)
+        } catch {
+            print("Error encrypting data: \(error.localizedDescription)")
+            return data
+        }
+    }
+    
+    func decrypt(_ data: Data) -> Data {
+        do {
+            let decrypted = try AES(key: key.bytes, blockMode: CBC(iv: iv.bytes), padding: .pkcs7).decrypt(data.bytes)
+            return Data(decrypted)
+        } catch {
+            print("Error decrypting data: \(error.localizedDescription)")
+            return data
+        }
+    }
+}
+//
+//  UserDefaults.swift
+//  BrewBookFinal
+import Foundation
+import UIKit
+
+class UserDefaultsManager {
+    static let shared = UserDefaultsManager()
+    
+    private let defaults = UserDefaults.standard
+    
+    private enum Keys {
+        static let isNotificationEnabled = "isNotificationEnabled"
+        static let defaultLocation = "defaultLocation"
+    }
+    
+    var isNotificationEnabled: Bool {
+        get {
+            return defaults.bool(forKey: Keys.isNotificationEnabled)
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.isNotificationEnabled)
+        }
+    }
+    
+    var defaultLocation: String? {
+        get {
+            return defaults.string(forKey: Keys.defaultLocation)
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.defaultLocation)
+        }
+    }
+}
+
+
+extension UserViewModel {
+    func saveImage(_ image: UIImage) {
+        guard let data = image.jpegData(compressionQuality: 1.0) ?? image.pngData() else {
+            return
+        }
+        let filename = getDocumentsDirectory().appendingPathComponent("\(user?.id ?? "user")_profile_img")
+        try? data.write(to: filename)
+    }
+    
+    func loadImage() -> UIImage? {
+        let filename = getDocumentsDirectory().appendingPathComponent("\(user?.id ?? "user")_profile_img")
+        return UIImage(contentsOfFile: filename.path)
+    }
+
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+}

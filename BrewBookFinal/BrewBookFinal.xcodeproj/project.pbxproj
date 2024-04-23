@@ -1,0 +1,736 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		417355182BD3F6C50060BFDF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417355172BD3F6C50060BFDF /* UserDefaults.swift */; };
+		4173551A2BD3F6F60060BFDF /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417355192BD3F6F60060BFDF /* ImageStorage.swift */; };
+		4173551C2BD3F7250060BFDF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173551B2BD3F7250060BFDF /* ImagePicker.swift */; };
+		4173551E2BD3FDB60060BFDF /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173551D2BD3FDB60060BFDF /* AppStyles.swift */; };
+		417355202BD409830060BFDF /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173551F2BD409830060BFDF /* AuthenticationView.swift */; };
+		417355222BD410E80060BFDF /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417355212BD410E80060BFDF /* MainTabView.swift */; };
+		4173552C2BD416250060BFDF /* BrewBookFinalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173552B2BD416250060BFDF /* BrewBookFinalTests.swift */; };
+		417355332BD416850060BFDF /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417355322BD416850060BFDF /* UserViewModelTests.swift */; };
+		417355352BD41E590060BFDF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 417355342BD41E590060BFDF /* FirebaseAuth */; };
+		417355372BD41E630060BFDF /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 417355362BD41E630060BFDF /* CryptoSwift */; };
+		419C46FD2BD1DB53006F0A72 /* BrewBookFinalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C46FC2BD1DB53006F0A72 /* BrewBookFinalApp.swift */; };
+		419C47032BD1DB55006F0A72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419C47022BD1DB55006F0A72 /* Assets.xcassets */; };
+		419C47062BD1DB55006F0A72 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419C47052BD1DB55006F0A72 /* Preview Assets.xcassets */; };
+		419C47102BD1DD51006F0A72 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C470F2BD1DD51006F0A72 /* User.swift */; };
+		419C47122BD1DD78006F0A72 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C47112BD1DD78006F0A72 /* Cafe.swift */; };
+		419C47142BD1DD9D006F0A72 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C47132BD1DD9D006F0A72 /* Booking.swift */; };
+		419C47182BD1DE7B006F0A72 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C47172BD1DE7B006F0A72 /* SplashScreenView.swift */; };
+		419C471E2BD1DEB3006F0A72 /* CafeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C471D2BD1DEB3006F0A72 /* CafeListView.swift */; };
+		419C47242BD1DEE9006F0A72 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C47232BD1DEE9006F0A72 /* UserProfileView.swift */; };
+		419C47272BD1DF4D006F0A72 /* CafeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C47262BD1DF4D006F0A72 /* CafeViewModel.swift */; };
+		419C472B2BD1DF7E006F0A72 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419C472A2BD1DF7E006F0A72 /* BookingViewModel.swift */; };
+		41A171A72BD301EF001B8F7B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41A171A62BD301EF001B8F7B /* GoogleService-Info.plist */; };
+		41A171B72BD31701001B8F7B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171B62BD31701001B8F7B /* UserViewModel.swift */; };
+		41A171B92BD317AA001B8F7B /* BookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171B82BD317AA001B8F7B /* BookingsView.swift */; };
+		41A171BD2BD31B0D001B8F7B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171BC2BD31B0D001B8F7B /* NetworkService.swift */; };
+		41A171BF2BD31DC8001B8F7B /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171BE2BD31DC8001B8F7B /* BookingView.swift */; };
+		41A171C12BD3211B001B8F7B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171C02BD3211B001B8F7B /* ImageLoader.swift */; };
+		41A171C32BD32166001B8F7B /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171C22BD32166001B8F7B /* AsyncImage.swift */; };
+		41A171C52BD3276A001B8F7B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171C42BD3276A001B8F7B /* MapView.swift */; };
+		41A171C72BD32782001B8F7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171C62BD32782001B8F7B /* LocationManager.swift */; };
+		41A171CE2BD32E1F001B8F7B /* EncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171CD2BD32E1F001B8F7B /* EncryptionManager.swift */; };
+		41A171D52BD32EB8001B8F7B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171D42BD32EB8001B8F7B /* LoginView.swift */; };
+		41A171D72BD32ED3001B8F7B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171D62BD32ED3001B8F7B /* SignUpView.swift */; };
+		41A171DC2BD33732001B8F7B /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A171DB2BD33732001B8F7B /* AuthenticationState.swift */; };
+		41C06FC92BD47D9C00F62099 /* AllCafesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C06FC82BD47D9C00F62099 /* AllCafesMapView.swift */; };
+		41DAD7172BD45FA800661629 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 41DAD7162BD45FA800661629 /* FirebaseAuth */; };
+		41DAD7192BD45FA800661629 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41DAD7182BD45FA800661629 /* FirebaseFirestore */; };
+		41DAD71B2BD45FA800661629 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41DAD71A2BD45FA800661629 /* CryptoSwift */; };
+		41DAD71D2BD4629500661629 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 41DAD71C2BD4629500661629 /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4173552D2BD416250060BFDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 419C46F12BD1DB53006F0A72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 419C46F82BD1DB53006F0A72;
+			remoteInfo = BrewBookFinal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		417355172BD3F6C50060BFDF /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		417355192BD3F6F60060BFDF /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
+		4173551B2BD3F7250060BFDF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		4173551D2BD3FDB60060BFDF /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
+		4173551F2BD409830060BFDF /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		417355212BD410E80060BFDF /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		417355292BD416250060BFDF /* BrewBookFinalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrewBookFinalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4173552B2BD416250060BFDF /* BrewBookFinalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewBookFinalTests.swift; sourceTree = "<group>"; };
+		417355322BD416850060BFDF /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
+		419C46F92BD1DB53006F0A72 /* BrewBookFinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrewBookFinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		419C46FC2BD1DB53006F0A72 /* BrewBookFinalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewBookFinalApp.swift; sourceTree = "<group>"; };
+		419C47022BD1DB55006F0A72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		419C47052BD1DB55006F0A72 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		419C470F2BD1DD51006F0A72 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		419C47112BD1DD78006F0A72 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
+		419C47132BD1DD9D006F0A72 /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
+		419C47172BD1DE7B006F0A72 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		419C471D2BD1DEB3006F0A72 /* CafeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeListView.swift; sourceTree = "<group>"; };
+		419C47232BD1DEE9006F0A72 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		419C47262BD1DF4D006F0A72 /* CafeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeViewModel.swift; sourceTree = "<group>"; };
+		419C472A2BD1DF7E006F0A72 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
+		41A171A62BD301EF001B8F7B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		41A171B62BD31701001B8F7B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		41A171B82BD317AA001B8F7B /* BookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsView.swift; sourceTree = "<group>"; };
+		41A171BC2BD31B0D001B8F7B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		41A171BE2BD31DC8001B8F7B /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
+		41A171C02BD3211B001B8F7B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		41A171C22BD32166001B8F7B /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		41A171C42BD3276A001B8F7B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		41A171C62BD32782001B8F7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		41A171CA2BD32C71001B8F7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		41A171CD2BD32E1F001B8F7B /* EncryptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionManager.swift; sourceTree = "<group>"; };
+		41A171D42BD32EB8001B8F7B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		41A171D62BD32ED3001B8F7B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		41A171DB2BD33732001B8F7B /* AuthenticationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationState.swift; sourceTree = "<group>"; };
+		41C06FC82BD47D9C00F62099 /* AllCafesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCafesMapView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		417355262BD416250060BFDF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				417355352BD41E590060BFDF /* FirebaseAuth in Frameworks */,
+				417355372BD41E630060BFDF /* CryptoSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		419C46F62BD1DB53006F0A72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DAD7172BD45FA800661629 /* FirebaseAuth in Frameworks */,
+				41DAD71D2BD4629500661629 /* FirebaseStorage in Frameworks */,
+				41DAD7192BD45FA800661629 /* FirebaseFirestore in Frameworks */,
+				41DAD71B2BD45FA800661629 /* CryptoSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4173552A2BD416250060BFDF /* BrewBookFinalTests */ = {
+			isa = PBXGroup;
+			children = (
+				4173552B2BD416250060BFDF /* BrewBookFinalTests.swift */,
+				417355322BD416850060BFDF /* UserViewModelTests.swift */,
+			);
+			path = BrewBookFinalTests;
+			sourceTree = "<group>";
+		};
+		419C46F02BD1DB53006F0A72 = {
+			isa = PBXGroup;
+			children = (
+				419C46FB2BD1DB53006F0A72 /* BrewBookFinal */,
+				4173552A2BD416250060BFDF /* BrewBookFinalTests */,
+				419C46FA2BD1DB53006F0A72 /* Products */,
+				41A171A92BD3032C001B8F7B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		419C46FA2BD1DB53006F0A72 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				419C46F92BD1DB53006F0A72 /* BrewBookFinal.app */,
+				417355292BD416250060BFDF /* BrewBookFinalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		419C46FB2BD1DB53006F0A72 /* BrewBookFinal */ = {
+			isa = PBXGroup;
+			children = (
+				41A171CA2BD32C71001B8F7B /* Info.plist */,
+				41A171A62BD301EF001B8F7B /* GoogleService-Info.plist */,
+				419C470E2BD1DD36006F0A72 /* Models */,
+				419C47252BD1DF30006F0A72 /* View Models */,
+				419C47162BD1DE38006F0A72 /* Views */,
+				419C46FC2BD1DB53006F0A72 /* BrewBookFinalApp.swift */,
+				41A171C62BD32782001B8F7B /* LocationManager.swift */,
+				41A171BC2BD31B0D001B8F7B /* NetworkService.swift */,
+				41A171C22BD32166001B8F7B /* AsyncImage.swift */,
+				41A171DB2BD33732001B8F7B /* AuthenticationState.swift */,
+				4173551B2BD3F7250060BFDF /* ImagePicker.swift */,
+				417355192BD3F6F60060BFDF /* ImageStorage.swift */,
+				41A171CD2BD32E1F001B8F7B /* EncryptionManager.swift */,
+				417355172BD3F6C50060BFDF /* UserDefaults.swift */,
+				4173551D2BD3FDB60060BFDF /* AppStyles.swift */,
+				419C47022BD1DB55006F0A72 /* Assets.xcassets */,
+				419C47042BD1DB55006F0A72 /* Preview Content */,
+			);
+			path = BrewBookFinal;
+			sourceTree = "<group>";
+		};
+		419C47042BD1DB55006F0A72 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				419C47052BD1DB55006F0A72 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		419C470E2BD1DD36006F0A72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				419C470F2BD1DD51006F0A72 /* User.swift */,
+				419C47112BD1DD78006F0A72 /* Cafe.swift */,
+				419C47132BD1DD9D006F0A72 /* Booking.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		419C47162BD1DE38006F0A72 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				419C47172BD1DE7B006F0A72 /* SplashScreenView.swift */,
+				4173551F2BD409830060BFDF /* AuthenticationView.swift */,
+				41A171D42BD32EB8001B8F7B /* LoginView.swift */,
+				41A171D62BD32ED3001B8F7B /* SignUpView.swift */,
+				417355212BD410E80060BFDF /* MainTabView.swift */,
+				41A171B82BD317AA001B8F7B /* BookingsView.swift */,
+				41A171BE2BD31DC8001B8F7B /* BookingView.swift */,
+				41A171C42BD3276A001B8F7B /* MapView.swift */,
+				419C47232BD1DEE9006F0A72 /* UserProfileView.swift */,
+				419C471D2BD1DEB3006F0A72 /* CafeListView.swift */,
+				41A171C02BD3211B001B8F7B /* ImageLoader.swift */,
+				41C06FC82BD47D9C00F62099 /* AllCafesMapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		419C47252BD1DF30006F0A72 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				419C472A2BD1DF7E006F0A72 /* BookingViewModel.swift */,
+				41A171B62BD31701001B8F7B /* UserViewModel.swift */,
+				419C47262BD1DF4D006F0A72 /* CafeViewModel.swift */,
+			);
+			name = "View Models";
+			sourceTree = "<group>";
+		};
+		41A171A92BD3032C001B8F7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		417355282BD416250060BFDF /* BrewBookFinalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4173552F2BD416250060BFDF /* Build configuration list for PBXNativeTarget "BrewBookFinalTests" */;
+			buildPhases = (
+				417355252BD416250060BFDF /* Sources */,
+				417355262BD416250060BFDF /* Frameworks */,
+				417355272BD416250060BFDF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4173552E2BD416250060BFDF /* PBXTargetDependency */,
+			);
+			name = BrewBookFinalTests;
+			packageProductDependencies = (
+				417355342BD41E590060BFDF /* FirebaseAuth */,
+				417355362BD41E630060BFDF /* CryptoSwift */,
+			);
+			productName = BrewBookFinalTests;
+			productReference = 417355292BD416250060BFDF /* BrewBookFinalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		419C46F82BD1DB53006F0A72 /* BrewBookFinal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 419C47092BD1DB55006F0A72 /* Build configuration list for PBXNativeTarget "BrewBookFinal" */;
+			buildPhases = (
+				419C46F52BD1DB53006F0A72 /* Sources */,
+				419C46F62BD1DB53006F0A72 /* Frameworks */,
+				419C46F72BD1DB53006F0A72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41C06FCF2BD5119B00F62099 /* PBXTargetDependency */,
+				41C06FD12BD5119B00F62099 /* PBXTargetDependency */,
+				41C06FCD2BD5119100F62099 /* PBXTargetDependency */,
+				41C06FCB2BD5118900F62099 /* PBXTargetDependency */,
+			);
+			name = BrewBookFinal;
+			packageProductDependencies = (
+				41DAD7162BD45FA800661629 /* FirebaseAuth */,
+				41DAD7182BD45FA800661629 /* FirebaseFirestore */,
+				41DAD71A2BD45FA800661629 /* CryptoSwift */,
+				41DAD71C2BD4629500661629 /* FirebaseStorage */,
+			);
+			productName = BrewBookFinal;
+			productReference = 419C46F92BD1DB53006F0A72 /* BrewBookFinal.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		419C46F12BD1DB53006F0A72 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					417355282BD416250060BFDF = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 419C46F82BD1DB53006F0A72;
+					};
+					419C46F82BD1DB53006F0A72 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = 419C46F42BD1DB53006F0A72 /* Build configuration list for PBXProject "BrewBookFinal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 419C46F02BD1DB53006F0A72;
+			packageReferences = (
+				41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				41A171D82BD330CB001B8F7B /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+			);
+			productRefGroup = 419C46FA2BD1DB53006F0A72 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				419C46F82BD1DB53006F0A72 /* BrewBookFinal */,
+				417355282BD416250060BFDF /* BrewBookFinalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		417355272BD416250060BFDF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		419C46F72BD1DB53006F0A72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41A171A72BD301EF001B8F7B /* GoogleService-Info.plist in Resources */,
+				419C47062BD1DB55006F0A72 /* Preview Assets.xcassets in Resources */,
+				419C47032BD1DB55006F0A72 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		417355252BD416250060BFDF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4173552C2BD416250060BFDF /* BrewBookFinalTests.swift in Sources */,
+				417355332BD416850060BFDF /* UserViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		419C46F52BD1DB53006F0A72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				419C472B2BD1DF7E006F0A72 /* BookingViewModel.swift in Sources */,
+				4173551A2BD3F6F60060BFDF /* ImageStorage.swift in Sources */,
+				41A171C12BD3211B001B8F7B /* ImageLoader.swift in Sources */,
+				41A171BF2BD31DC8001B8F7B /* BookingView.swift in Sources */,
+				41A171B92BD317AA001B8F7B /* BookingsView.swift in Sources */,
+				419C47142BD1DD9D006F0A72 /* Booking.swift in Sources */,
+				419C47122BD1DD78006F0A72 /* Cafe.swift in Sources */,
+				41A171CE2BD32E1F001B8F7B /* EncryptionManager.swift in Sources */,
+				417355202BD409830060BFDF /* AuthenticationView.swift in Sources */,
+				419C47242BD1DEE9006F0A72 /* UserProfileView.swift in Sources */,
+				417355222BD410E80060BFDF /* MainTabView.swift in Sources */,
+				41A171C72BD32782001B8F7B /* LocationManager.swift in Sources */,
+				4173551E2BD3FDB60060BFDF /* AppStyles.swift in Sources */,
+				419C47102BD1DD51006F0A72 /* User.swift in Sources */,
+				4173551C2BD3F7250060BFDF /* ImagePicker.swift in Sources */,
+				41A171C52BD3276A001B8F7B /* MapView.swift in Sources */,
+				41C06FC92BD47D9C00F62099 /* AllCafesMapView.swift in Sources */,
+				419C47272BD1DF4D006F0A72 /* CafeViewModel.swift in Sources */,
+				419C46FD2BD1DB53006F0A72 /* BrewBookFinalApp.swift in Sources */,
+				41A171D52BD32EB8001B8F7B /* LoginView.swift in Sources */,
+				41A171D72BD32ED3001B8F7B /* SignUpView.swift in Sources */,
+				419C471E2BD1DEB3006F0A72 /* CafeListView.swift in Sources */,
+				41A171C32BD32166001B8F7B /* AsyncImage.swift in Sources */,
+				419C47182BD1DE7B006F0A72 /* SplashScreenView.swift in Sources */,
+				417355182BD3F6C50060BFDF /* UserDefaults.swift in Sources */,
+				41A171BD2BD31B0D001B8F7B /* NetworkService.swift in Sources */,
+				41A171DC2BD33732001B8F7B /* AuthenticationState.swift in Sources */,
+				41A171B72BD31701001B8F7B /* UserViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4173552E2BD416250060BFDF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 419C46F82BD1DB53006F0A72 /* BrewBookFinal */;
+			targetProxy = 4173552D2BD416250060BFDF /* PBXContainerItemProxy */;
+		};
+		41C06FCB2BD5118900F62099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 41C06FCA2BD5118900F62099 /* FirebaseAuth */;
+		};
+		41C06FCD2BD5119100F62099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 41C06FCC2BD5119100F62099 /* FirebaseFirestore */;
+		};
+		41C06FCF2BD5119B00F62099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 41C06FCE2BD5119B00F62099 /* FirebaseStorage */;
+		};
+		41C06FD12BD5119B00F62099 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 41C06FD02BD5119B00F62099 /* CryptoSwift */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		417355302BD416250060BFDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "--.BrewBookFinalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrewBookFinal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BrewBookFinal";
+			};
+			name = Debug;
+		};
+		417355312BD416250060BFDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "--.BrewBookFinalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrewBookFinal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BrewBookFinal";
+			};
+			name = Release;
+		};
+		419C47072BD1DB55006F0A72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		419C47082BD1DB55006F0A72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		419C470A2BD1DB55006F0A72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BrewBookFinal/Preview Content\"";
+				DEVELOPMENT_TEAM = A95RFJP285;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrewBookFinal/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "--.BrewBookFinal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		419C470B2BD1DB55006F0A72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BrewBookFinal/Preview Content\"";
+				DEVELOPMENT_TEAM = A95RFJP285;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrewBookFinal/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "--.BrewBookFinal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4173552F2BD416250060BFDF /* Build configuration list for PBXNativeTarget "BrewBookFinalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				417355302BD416250060BFDF /* Debug */,
+				417355312BD416250060BFDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		419C46F42BD1DB53006F0A72 /* Build configuration list for PBXProject "BrewBookFinal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				419C47072BD1DB55006F0A72 /* Debug */,
+				419C47082BD1DB55006F0A72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		419C47092BD1DB55006F0A72 /* Build configuration list for PBXNativeTarget "BrewBookFinal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				419C470A2BD1DB55006F0A72 /* Debug */,
+				419C470B2BD1DB55006F0A72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
+			};
+		};
+		41A171D82BD330CB001B8F7B /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		417355342BD41E590060BFDF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		417355362BD41E630060BFDF /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171D82BD330CB001B8F7B /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		41C06FCA2BD5118900F62099 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		41C06FCC2BD5119100F62099 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		41C06FCE2BD5119B00F62099 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		41C06FD02BD5119B00F62099 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171D82BD330CB001B8F7B /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		41DAD7162BD45FA800661629 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		41DAD7182BD45FA800661629 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		41DAD71A2BD45FA800661629 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171D82BD330CB001B8F7B /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		41DAD71C2BD4629500661629 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41A171A82BD3030A001B8F7B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 419C46F12BD1DB53006F0A72 /* Project object */;
+}
